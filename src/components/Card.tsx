@@ -1,13 +1,21 @@
 
 type CardProps = {
-  card: string;
+  card: CardType;
+  onClick: (card: CardType) => void;
 }
 
-export const Card = ({ card }: CardProps) => {
+type CardType = {
+  id: number;
+  value: string;
+  isFlipped: boolean;
+  isMatched: boolean;
+}
+
+export const Card = ({ card, onClick }: CardProps) => {
   return (
-    <div className="card">
+    <div className={`card ${card.isFlipped ? "flipped" : ""}`} onClick={() => onClick(card)}>
       <div className="card-front">?</div>
-      <div className="card-back">{card}</div>
+      <div className="card-back">{card.value}</div>
     </div>
   )
 }
