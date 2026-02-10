@@ -22,8 +22,20 @@ function App() {
   const [moves, setMoves] = useState<number>(0);
   const [isLocked, setIsLocked] = useState<boolean>(false);
 
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
   const initializeGame = () => {
-    const finalCards: CardType[] = cardValues.map((value: string, index: number) => ({
+    // Shuffle the cards
+    const shuffled = shuffleArray(cardValues);
+
+    const finalCards: CardType[] = shuffled.map((value: string, index: number) => ({
       id: index,
       value,
       isFlipped: false,
