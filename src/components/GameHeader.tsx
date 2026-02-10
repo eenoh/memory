@@ -1,9 +1,10 @@
 type GameHeaderProps = {
   score: number;
   moves: number;
+  onReset: () => void;
 };
 
-export const GameHeader = ({ score, moves }: GameHeaderProps) => {
+export const GameHeader = ({ score, moves, onReset }: GameHeaderProps) => {
   return (
     <div className="game-header">
       <h1>Memory Card Game</h1>
@@ -19,6 +20,8 @@ export const GameHeader = ({ score, moves }: GameHeaderProps) => {
           <span className="stat-value">{moves}</span>
         </div>
       </div>
+
+      <button className="reset-btn" onClick={onReset}>New Game</button>
     </div>
   );
 };
