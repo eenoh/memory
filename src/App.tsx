@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "./components/Card";
 import { GameHeader } from "./components/GameHeader";
+import { Win } from "./components/Win";
 
 const cardValues = [
   "🤨", "😄", "😍", "🤣", "🤐", "🤑", "😴", "🤯",
@@ -35,7 +36,7 @@ function App() {
     // Shuffle the cards
     const shuffled = shuffleArray(cardValues);
 
-    const finalCards: CardType[] = shuffled.map((value: string, index: number) => ({
+    const finalCards: CardType[] = cardValues.map((value: string, index: number) => ({
       id: index,
       value,
       isFlipped: false,
@@ -56,16 +57,6 @@ function App() {
   useEffect(() => {
     initializeGame();
   }, []);
-
-  useEffect(() => {
-    // Restart game automatically when all pairs are found
-    if (matchedCards.length === cardValues.length && cardValues.length > 0) {
-      setTimeout(() => {
-        initializeGame();
-        setIsLocked(false);
-      }, 800);
-    }
-  }, [matchedCards]);
 
   const handleCardClick = (card: CardType) => {
     // Don't allow clicking if card is already flipped/matched
@@ -120,9 +111,25 @@ function App() {
     }
   };
 
+  const RESTART_DELAY = 3000;
+
+  useEffect(() => {
+    // Restart game automatically when all pairs are found
+    if (matchedCards.length === cardValues.length && cardValues.length > 0) {
+      setTimeout(() => {
+        initializeGame();
+        setIsLocked(false);
+      }, RESTART_DELAY);
+    }
+  }, [matchedCards]);
+
+  const isGameComplete = matchedCards.length === cardValues.length;
+
   return (
     <div className="app">
       <GameHeader score={score} moves={moves} onReset={initializeGame} />
+
+      {isGameComplete && <Win moves={moves} duration={RESTART_DELAY} />}
 
       <div className="cards-grid">
         {cards.map((card) => (

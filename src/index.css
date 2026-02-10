@@ -256,3 +256,28 @@ body {
     font-size: 2.5rem;
   }
 }
+
+.restart-progress {
+  width: 100%;
+  max-width: 320px;
+  height: 10px;
+  margin: 16px auto 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.restart-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 999px;
+  transition: width 0.05s linear;
+}
+
+.restart-text {
+  font-size: 0.95rem;
+  color: #a1a1aa;
+  margin-top: 6px;
+}
